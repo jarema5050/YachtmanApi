@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YachmanAPI", "YachmanAPI\Ya
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YachmanAPI.Tests", "YachmanAPI.Tests\YachmanAPI.Tests.csproj", "{4BC08FD8-5DFA-48A7-894D-4E37A2542102}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{2A0D92A9-295E-42F8-B8E1-6B61173CDE45}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4BC08FD8-5DFA-48A7-894D-4E37A2542102}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BC08FD8-5DFA-48A7-894D-4E37A2542102}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BC08FD8-5DFA-48A7-894D-4E37A2542102}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A0D92A9-295E-42F8-B8E1-6B61173CDE45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A0D92A9-295E-42F8-B8E1-6B61173CDE45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A0D92A9-295E-42F8-B8E1-6B61173CDE45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A0D92A9-295E-42F8-B8E1-6B61173CDE45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

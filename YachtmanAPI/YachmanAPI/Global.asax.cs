@@ -6,7 +6,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-
+using YachmanAPI.App_Start;
+using AutoMapper;
 namespace YachmanAPI
 {
     public class WebApiApplication : System.Web.HttpApplication

@@ -16,11 +16,13 @@ using Microsoft.Owin.Security.OAuth;
 using YachmanAPI.Models;
 using YachmanAPI.Providers;
 using YachmanAPI.Results;
+using System.Web.Http.Cors;
 
 namespace YachmanAPI.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Account")]
+    [EnableCors(origins: "http://localhost:3000", headers: "*", methods: "*", exposedHeaders: "Access-Control-Allow-Origin: *")]
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";

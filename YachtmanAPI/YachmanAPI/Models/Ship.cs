@@ -13,7 +13,7 @@ namespace YachmanAPI.Models
         [StringLength(140)]
         public string Name { get; set; }
         [Required]
-        public User Owner { get; set; }
+        public AppUser Owner { get; set; }
         [Required]
         public int OwnerId { get; set; }
     }

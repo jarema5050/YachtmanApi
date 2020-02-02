@@ -22,7 +22,7 @@ namespace YachmanAPI.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Cruise> Cruises { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<Harbor> Harbors { get; set; }
         public DbSet<Ship> Ships { get; set; }
         public ApplicationDbContext()

@@ -7,7 +7,8 @@ using System.Web;
 namespace YachmanAPI.Models
 {
     public class CruiseMember
-    {
+    {   
+        public int Id { get; set; }
         [ForeignKey("Cruise")]
         public int? CruiseId { get; set; }
         public Cruise Cruise{ get; set; }

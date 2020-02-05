@@ -25,6 +25,7 @@ namespace YachmanAPI.Models
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<Harbor> Harbors { get; set; }
         public DbSet<Ship> Ships { get; set; }
+        public DbSet<CruiseMember> CruiseMembers { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

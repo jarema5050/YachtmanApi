@@ -266,6 +266,14 @@
     <Compile Include="Migrations\202002020007549_Users converted to AppUser to avoid conflicts.Designer.cs">
       <DependentUpon>202002020007549_Users converted to AppUser to avoid conflicts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002020302141_Added Capacity to Ships, CruiseMembers DB initialization.cs" />
+    <Compile Include="Migrations\202002020302141_Added Capacity to Ships, CruiseMembers DB initialization.Designer.cs">
+      <DependentUpon>202002020302141_Added Capacity to Ships, CruiseMembers DB initialization.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002041102463_Complete code.cs" />
+    <Compile Include="Migrations\202002041102463_Complete code.Designer.cs">
+      <DependentUpon>202002041102463_Complete code.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -386,6 +394,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002020007549_Users converted to AppUser to avoid conflicts.resx">
       <DependentUpon>202002020007549_Users converted to AppUser to avoid conflicts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002020302141_Added Capacity to Ships, CruiseMembers DB initialization.resx">
+      <DependentUpon>202002020302141_Added Capacity to Ships, CruiseMembers DB initialization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002041102463_Complete code.resx">
+      <DependentUpon>202002041102463_Complete code.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

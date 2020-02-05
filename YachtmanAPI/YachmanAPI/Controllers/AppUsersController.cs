@@ -16,7 +16,8 @@ namespace YachmanAPI.Controllers
     {
 
         private ApplicationDbContext db = new ApplicationDbContext();
-        [Route("api/users/email/{email}")]
+        // GET: api/AppUsers
+        [ResponseType(typeof(AppUser))]
         public IHttpActionResult GetAppUserByEmail(string email)
         {
             AppUser appUser = db.AppUsers.SingleOrDefault(user => user.Email == email);

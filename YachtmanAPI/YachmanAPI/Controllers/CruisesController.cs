@@ -20,6 +20,47 @@ namespace YachmanAPI.Controllers
     {
         private ApplicationDbContext _context = new ApplicationDbContext();
 
+        [Route("api/Cruises/Members/{cruiseId}")]
+        [HttpGet]
+        public IEnumerable<string> GetEnrolledUsers(int cruiseId)
+        {
+            var enrolledUsers = _context.CruiseMembers.Where(c => c.CruiseId == cruiseId).ToList();
+            List<string> userNames = new List<string>(); 
+            foreach (CruiseMember user in enrolledUsers){
+                var appUser = _context.AppUsers.SingleOrDefault(u => u.Id == user.UserId);
+                userNames.Add(appUser.Name + " " + appUser.Surname);
+            }
+            return userNames;
+        }
+        [Route("api/Cruises/Members/{memberId}")]
+        [HttpDelete]
+        public IHttpActionResult DeleteCruiseMember(int memberId)
+        {
+            var cruiseMember = _context.CruiseMembers.Single(c => c.UserId == memberId);
+            if (cruiseMember == null)
+            {
+                return NotFound();
+            }
+            _context.CruiseMembers.Remove(cruiseMember);
+            _context.SaveChanges();
+            return Ok(cruiseMember);
+        }
+        // POST: api/Cruises
+        [Route("api/Cruises/Members")]
+        [HttpPost]
+        public IHttpActionResult PostCruiseMember(CruiseMember cruiseMember)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            _context.CruiseMembers.Add(cruiseMember);
+            _context.SaveChanges();
+
+            return Created("Created successfully", cruiseMember);
+        }
+
         // GET: api/Cruises
         [HttpGet]
         public IEnumerable<CruiseDto> GetCruises()
@@ -36,6 +77,7 @@ namespace YachmanAPI.Controllers
                 cruiseDto.DepartureHarborName = _context.Harbors.SingleOrDefault(h => h.Id == cruise.DepartureHarborId).City;
                 cruiseDto.ArrivalHarborName = _context.Harbors.SingleOrDefault(h => h.Id == cruise.ArrivalHarborId).City;
                 cruiseDto.Id = cruise.Id;
+                cruiseDto.OwnerId = _context.Ships.SingleOrDefault(s => s.Id == cruise.ShipId).OwnerId;
                 cruisesResponse.Add(cruiseDto);
             }
             return cruisesResponse;
@@ -53,51 +95,56 @@ namespace YachmanAPI.Controllers
 
             return Ok(cruise);
         }
-
+        [HttpPut]
         // PUT: api/Cruises/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutCruise(int id, Cruise cruise)
+        public IHttpActionResult PutCruise(int id, CruiseDto cruiseDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            if (id != cruise.Id)
+            var cruise = _context.Cruises.SingleOrDefault(c => c.Id == id);
+            //_context.Cruises.Remove(cruise);
+            if (cruiseDto.ArrivalDateDto != null)
             {
-                return BadRequest();
+                cruise.ArrivalDate = new DateTime(cruiseDto.ArrivalDateDto.Year, cruiseDto.ArrivalDateDto.Month, cruiseDto.ArrivalDateDto.Day, cruiseDto.ArrivalDateDto.Hour, cruiseDto.ArrivalDateDto.Minute, 0);
             }
-
-            _context.Entry(cruise).State = EntityState.Modified;
-
-            try
+            if(cruiseDto.DepartureDateDto != null)
             {
-                _context.SaveChanges();
+                cruise.DepartureDate = new DateTime(cruiseDto.DepartureDateDto.Year, cruiseDto.DepartureDateDto.Month, cruiseDto.DepartureDateDto.Day, cruiseDto.DepartureDateDto.Hour, cruiseDto.DepartureDateDto.Minute, 0);
             }
-            catch (DbUpdateConcurrencyException)
+            if(cruiseDto.ArrivalHarborName != null)
             {
-                if (!CruiseExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                cruise.ArrivalHarborId = _context.Harbors.SingleOrDefault(h => h.City == cruiseDto.ArrivalHarborName).Id;
             }
-
-            return StatusCode(HttpStatusCode.NoContent);
+            if(cruiseDto.DepartureHarborName != null)
+            {
+                cruise.DepartureHarborId = _context.Harbors.SingleOrDefault(h => h.City == cruiseDto.DepartureHarborName).Id;
+            }
+            if(cruiseDto.ShipName != null)
+            {
+                cruise.ShipId = _context.Ships.SingleOrDefault(s => s.Name == cruiseDto.ShipName).Id;
+            }
+            //_context.Cruises.Add(cruise);
+            _context.SaveChanges();
+            return Ok();
         }
 
         // POST: api/Cruises
         [ResponseType(typeof(Cruise))]
-        public IHttpActionResult PostCruise(Cruise cruise)
+        public IHttpActionResult PostCruise(CruiseDto cruiseDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
+            var cruise = new Cruise();
+            cruise.ArrivalDate = new DateTime(cruiseDto.ArrivalDateDto.Year, cruiseDto.ArrivalDateDto.Month, cruiseDto.ArrivalDateDto.Day, cruiseDto.ArrivalDateDto.Hour, cruiseDto.ArrivalDateDto.Minute, 0);
+            cruise.DepartureDate = new DateTime(cruiseDto.DepartureDateDto.Year, cruiseDto.DepartureDateDto.Month, cruiseDto.DepartureDateDto.Day, cruiseDto.DepartureDateDto.Hour, cruiseDto.DepartureDateDto.Minute, 0);
+            cruise.ArrivalHarborId = _context.Harbors.SingleOrDefault(h => h.City == cruiseDto.ArrivalHarborName).Id;
+            cruise.DepartureHarborId = _context.Harbors.SingleOrDefault(h => h.City == cruiseDto.DepartureHarborName).Id;
+            cruise.ShipId = _context.Ships.SingleOrDefault(s => s.Name == cruiseDto.ShipName).Id;
             _context.Cruises.Add(cruise);
             _context.SaveChanges();
 
